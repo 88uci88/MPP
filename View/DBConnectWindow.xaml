@@ -1,0 +1,30 @@
+﻿<Window x:Class="MPP.View.DBConnectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MPP.View"
+        xmlns:VM="clr-namespace:MPP.ViewModel"
+        mc:Ignorable="d"
+        Title="MPP" Height="190" Width="500" 
+        MinHeight="200" MinWidth="500"
+        MaxHeight="200" MaxWidth="500" FontSize="20"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <VM:DBConnectViewModel/>
+    </Window.DataContext>
+    <Grid Background="#f8f9fa">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="48.6"/>
+            <RowDefinition Height="Auto" MinHeight="50.6"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Введите название БД:" Margin="10" Foreground="#000000"/>
+        <TextBox Grid.Row="1" Text="{Binding DbName, UpdateSourceTrigger=PropertyChanged}" Margin="10" Height="35" Background="#ffffff" BorderBrush="#d9d9d9" BorderThickness="1"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <Button Content="Demo" Command="{Binding EnterDefaultCommand}" Margin="10" Width="234" Background="#46d26d" Foreground="#ffffff" BorderBrush="#46d26d" BorderThickness="1"/>
+            <Button Content="Подключиться" Command="{Binding ConnectCommand}" Margin="10" Width="209" Background="#007acc" Foreground="#ffffff" BorderBrush="#007acc" BorderThickness="1"/>
+        </StackPanel>
+    </Grid>
+</Window>

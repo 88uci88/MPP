@@ -1,0 +1,35 @@
+﻿<Window x:Class="MPP.View.AddProjectDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MPP.View"
+        mc:Ignorable="d"
+        Title="Новый Проект" MinHeight="190" MinWidth="320"
+        MaxHeight="190" MaxWidth="320"
+        FontSize="18px"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#f8f9fa">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Label Margin="3px" Foreground="#000000">Название:</Label>
+            <Label Margin="3px" Foreground="#000000">Адрес:</Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <TextBox Margin="3px" Height="35" Text="{Binding Path=Name}" Background="#ffffff"/>
+            <TextBox Margin="3px" Height="35" Text="{Binding Path=Address}" Background="#ffffff"/>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="2" Orientation="Horizontal">
+            <Button Margin="3px" Click="Button_Click" IsDefault="True" Background="#46d26d" Width="154">Добавить</Button>
+            <Button Margin="3px" IsCancel="True" Background="#d26746" Width="155">Отмена</Button>
+        </StackPanel>
+    </Grid>
+</Window>

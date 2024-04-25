@@ -1,0 +1,99 @@
+﻿<Window x:Class="MPP.View.AreaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MPP"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:VM="clr-namespace:MPP.ViewModel"
+        mc:Ignorable="d"
+        Title="{Binding AreaName}" MinHeight="510" MinWidth="800" Name="Main"
+        MaxHeight="510" MaxWidth="800"
+        FontSize="14"
+        WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <VM:AreaViewModel/>
+    </Window.DataContext>
+    <Grid Background="#f8f9fa">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="51*"/>
+            <ColumnDefinition Width="48*"/>
+            <ColumnDefinition Width="61*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="26"/>
+            <RowDefinition Height="183*"/>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="187*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,5,0,5" Grid.ColumnSpan="2">
+            <Label Content="Название площади:" Width="133" VerticalAlignment="Center" Foreground="#000000"/>
+            <TextBox Text="{Binding AreaName}" Grid.Row="1" Width="172" Background="#ffffff"/>
+            <Button Command="{Binding AddCustomerCommand}" Width="66" Margin="5,0,5,0" Background="#46d26d">Добавить</Button>
+            <Button Command="{Binding DeleteCustomerCommand}" Width="66" Background="#d26746">Удалить</Button>
+        </StackPanel>
+        <Label Content="Точки площади:" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="118" Foreground="#000000"/>
+        <StackPanel Grid.Row="2" Grid.RowSpan="3">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+        </StackPanel>
+        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,131" Grid.RowSpan="2" Content="Отображение:" Foreground="#000000"/>
+        <StackPanel Grid.Column="0" Grid.Row="2" Margin="0,0,0,5">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <ListView ItemsSource="{Binding Area.Points}" SelectedItem="{Binding SelectedPoint}" Height="143">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="X: " Foreground="#000000"/>
+                                <TextBox MinWidth="40" Text="{Binding X}" Background="#ffffff">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="LostFocus">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.SavePointCommand, ElementName=Main}" CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                                <Label Content=" Y: " Foreground="#000000"/>
+                                <TextBox MinWidth="40" Text="{Binding Y}" Background="#ffffff">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="LostFocus">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.SavePointCommand, ElementName=Main}" CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding AddPointCommand}" Height="23" Width="80" Margin="0,5,5,0" Background="#46d26d">Добавить</Button>
+                <Button Command="{Binding DeletePointCommand}" Height="23" Width="80" Margin="0,5,5,0" Background="#d26746">Удалить</Button>
+                <Button Command="{Binding AddRandomPointCommand}" Height="23" Width="80" Margin="0,5,0,0" Background="#e9ecef">Случайно</Button>
+            </StackPanel>
+        </StackPanel>
+        <Label Content="Профили:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="118" Foreground="#000000"/>
+        <StackPanel Grid.Column="0" Grid.Row="4" Margin="0,5,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <ListView ItemsSource="{Binding Area.Profiles}" SelectedItem="{Binding SelectedProfile}" Height="161">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Id}" Padding="5"/>
+                                <Button Command="{Binding DataContext.OpenProfileCommand, ElementName=Main}" CommandParameter="{Binding}" Content="Открыть" Background="#d9d9d9"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <Button Command="{Binding AddProfileCommand}" Margin="0,0,5,0" Width="121" Background="#46d26d">Добавить</Button>
+                <Button Command="{Binding DeleteProfileCommand}" Width="125" Content="Удалить" Background="#d26746"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="3">
+            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Height="420">
+                <Image Source="{Binding Image}" Stretch="Uniform" Margin="4" Height="414"/>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</Window>
